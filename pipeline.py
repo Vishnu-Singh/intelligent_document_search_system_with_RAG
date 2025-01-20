@@ -3,12 +3,17 @@ import faiss
 import numpy as np
 import openai
 
-class openAIPipeline:
+class OpenAIPipeline:
 
     def __init__(self,config):
         self.config = config
         openai.api_key = config.openai_api_key
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self,*exc):
+        pass
 
     def search_in_context(self,query,context):
         embeddings = OpenAIEmbeddings(openai_api_key=self.api_key)
